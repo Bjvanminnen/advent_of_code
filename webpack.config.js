@@ -1,3 +1,5 @@
+var SuccessPlugin = require('webpack-success-plugin');
+
 module.exports = {
   entry: [
     __dirname + '/node_modules/babel-core/browser-polyfill.js',
@@ -6,6 +8,9 @@ module.exports = {
   output: {
     filename: 'built/output.js'
   },
+  plugins: [
+    new SuccessPlugin('node built/output.js')
+  ],
   module: {
     loaders: [
       {
