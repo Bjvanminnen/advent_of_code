@@ -303,23 +303,25 @@ const DATA = [
 
 let lights = [];
 for (let i = 0; i < 1000 * 1000; i++) {
-  lights[i] = false;
+  lights[i] = 0;
 }
 
 const countLights = () => lights.filter(item => item).length;
 
+const totalBrightness = () => lights.reduce((prev, cur) => prev + cur, 0);
+
 const getIndex = (row, col) => row * 1000 + col;
 
 const lightToggle = (row, col) => {
-  lights[getIndex(row, col)] = !lights[getIndex(row, col)];
+  lights[getIndex(row, col)] = lights[getIndex(row, col)] + 2;
 };
 
 const lightOn = (row, col) => {
-  lights[getIndex(row, col)] = true;
+  lights[getIndex(row, col)] = lights[getIndex(row, col)] + 1;
 };
 
 const lightOff = (row, col) => {
-  lights[getIndex(row, col)] = false;
+  lights[getIndex(row, col)] = Math.max(0, lights[getIndex(row, col)] - 1);
 };
 
 const verbToFunc = {
@@ -359,4 +361,5 @@ DATA.forEach(applyLine);
 // applyLine(DATA[0]);
 // console.log(countLights());
 
-console.log(countLights());
+// console.log(countLights());
+console.log(totalBrightness());
