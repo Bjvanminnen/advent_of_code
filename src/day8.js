@@ -301,6 +301,9 @@
 //   "njro\x68qgbx\xe4af\"\\suan",
 // ];
 
+// Z = \
+
+
 const DATA2 = [
   '"qxfcsmh"',
   '"ffsfyxbyuhqkpwatkjgudo"',
@@ -624,4 +627,29 @@ const sum = (list) => list.reduce((prev, cur) => prev + cur, 0);
 // console.log(memoryChars(str));
 
 const diffs = DATA2.map(line => literalChars(line) - memoryChars(line));
-console.log(sum(diffs));
+// console.log(sum(diffs));
+
+
+//////
+
+
+const encodedChars = line => {
+  const newLine = line
+  .replace(/Z/g, '|Z')
+  .replace(/\"/g, '|"');
+    // .replace(/Z\"/g, '|Z"')
+    // .replace(/\"/g, '|"')
+    // .replace(/Zx/g, '|Zx');
+  return newLine.length + 2;
+};
+
+const numEncodings = line => {
+
+};
+
+const DATA3 = ['""', '"abc"', '"aaaZ"aaa"', '"Zx27"' ]
+// const diffs2 = DATA3.map(line => [literalChars(line), encodedChars(line), encodedChars(line) - literalChars(line)]);
+// console.log(diffs2);
+const diffs2 = DATA2.map(line => encodedChars(line) - literalChars(line));
+
+console.log(sum(diffs2));
