@@ -75,6 +75,15 @@ DATA.map(parseLine).forEach(item => {
   graph[src][target] = delta;
 });
 
+let allNames = Object.keys(graph);
+
+graph['Brent'] = {};
+allNames.forEach(name => {
+  graph['Brent'][name] = 0;
+  graph[name]['Brent'] = 0;
+});
+allNames.push('Brent');
+
 //http://stackoverflow.com/a/9960925/2506748
 var permArr = [],
   usedChars = [];
@@ -93,8 +102,6 @@ function permute(input) {
   return permArr;
 };
 
-const allNames = Object.keys(graph);
-
 const permutations = permute(allNames);
 
 const happiness = seats => {
@@ -102,6 +109,10 @@ const happiness = seats => {
   seats.forEach((person, index) => {
     const left = index === 0 ? seats.slice(-1)[0] : seats[index - 1];
     const right = index === seats.length - 1? seats[0] : seats[index + 1];
+
+    // console.log(left + ' ' + right);
+    // console.log(graph[person][left]);
+    // console.log(graph[person][left]);
 
     sum += graph[person][left];
     sum += graph[person][right];
@@ -113,5 +124,9 @@ let max = 0;
 permutations.forEach(seats => {
   const val = happiness(seats);
   max = Math.max(max, val);
+  // if (isNaN(max)) {
+  //   console.log(seats);
+  //   throw 'done';
+  // }
 });
 console.log(max);
