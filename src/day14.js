@@ -41,10 +41,28 @@ const distance = (info, n) => {
   return dist;
 };
 
-const dists = Object.keys(infos).map(name => {
-  const info = infos[name];
-  return distance(info, 2503);
-});
-
 // console.log(dists.sort());
-console.log(Math.max(...dists));
+// console.log(Math.max(...dists));
+let points = {};
+Object.keys(infos).forEach(name => points[name] = 0);
+
+const allNames = Object.keys(infos);
+
+for (var i = 1; i <= 2503; i++) {
+  const pairs = allNames.map(name => {
+    return [
+      name,
+      distance(infos[name], i)
+    ];
+  });
+
+  const max = Math.max(...pairs.map(pair => pair[1]));
+ 
+  pairs.forEach(pair => {
+    if (pair[1] === max) {
+      points[pair[0]]++;
+    }
+  });
+}
+
+console.log(points);
