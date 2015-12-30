@@ -539,21 +539,26 @@ DATA.forEach(line => {
 Object.keys(INFO).forEach(sn => {
   const obj = INFO[sn];
 
-  const checkField = (fieldName, val) => {
+  const eq = (a, b) => a === b;
+  const lt = (a, b) => a < b;
+  const gt = (a, b) => a > b;
+
+  const checkField = (fieldName, val, op) => {
+    op = op || eq;
     if (obj[fieldName] === undefined) {
       return true;
     }
-    return obj[fieldName] === val;
+    return op(obj[fieldName], val);
   };
 
   const isSue = checkField('children', 3) &&
-    checkField('cats', 7) &&
+    checkField('cats', 7, gt) &&
     checkField('samoyeds', 2) &&
-    checkField('pomeranians', 3) &&
+    checkField('pomeranians', 3, lt) &&
     checkField('akitas', 0) &&
     checkField('vizslas', 0) &&
-    checkField('goldfish', 5) &&
-    checkField('trees', 3) &&
+    checkField('goldfish', 5, lt) &&
+    checkField('trees', 3, gt) &&
     checkField('cars', 2) &&
     checkField('perfumes', 1);
   if (isSue) {
@@ -562,4 +567,4 @@ Object.keys(INFO).forEach(sn => {
 
 });
 
-
+console.log('answer 323');
