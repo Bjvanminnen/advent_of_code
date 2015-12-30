@@ -4,4 +4,4 @@ global.assert = function (condition, message) {
   }
 }
 
-require('./day15');
+require('./day16');
