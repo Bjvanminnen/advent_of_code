@@ -62,7 +62,7 @@ const cookieScore = ingredientList => {
 
   // console.log(sums);
 
-  return sums.capacity * sums.durability * sums.flavor * sums.texture;
+  return [sums.capacity * sums.durability * sums.flavor * sums.texture, sums.calories];
 };
 
 const shortScore = (frosting, candy, butterscotch, sugar) => {
@@ -92,7 +92,10 @@ for (var a = 0; a <= 100; a++) {
       if (d < 0) {
         continue;
       }
-      const score = shortScore(a, b, c, d);
+      const [score, calories] = shortScore(a, b, c, d);
+      if (calories !== 500) {
+        continue;
+      }
       if (score > best) {
         best = score;
         vals = [a, b, c, d];
