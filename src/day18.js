@@ -25,7 +25,21 @@ const lightOn = (row, col, grid) => {
   return gridRow[col] === '#';
 };
 
+const isCorner = (row, col, grid) => {
+  if (row === 0 || row === grid.length - 1) {
+    if (col === 0 || col === grid[0].length - 1) {
+      return true;
+    }
+  }
+  return false;
+
+};
+
 const nextVal = (row, col, grid) => {
+  if (isCorner(row, col, grid)) {
+    return '#';
+  }
+
   const numNeighbors = numNeighborsOn(row, col, grid);
 
   const curVal = grid[row][col];
@@ -40,6 +54,17 @@ const nextVal = (row, col, grid) => {
 };
 
 const startGrid = DATA.map(line => line.split(''));
+
+const turnOnCorners = grid => {
+  return grid.map((row, rowNum) => {
+    return row.map((col, colNum) => {
+      if (isCorner(rowNum, colNum, grid)) {
+        return '#';
+      }
+      return grid[rowNum][colNum]; 
+    });
+  });
+};
 
 const nextGrid = (grid) => {
   return grid.map((row, rowNum) => {
@@ -68,8 +93,14 @@ const testGrid = [
   '####..'
 ].map(line => line.split(''));
 
-let grid = startGrid;
+const printGrid = grid => {
+  grid.forEach(row => console.log(row.join('')));
+  console.log(' ');
+};
+
+let grid = turnOnCorners(startGrid);
 for (var i = 0; i < 100; i++) {
+  // printGrid(grid);
   grid = nextGrid(grid);
 }
 console.log(numLights(grid));

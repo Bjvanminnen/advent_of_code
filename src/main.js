@@ -23,4 +23,4 @@ function permute(input) {
 };
 global.permute = permute;
 
-require('./day17');
+require('./day18');
